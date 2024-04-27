@@ -9,7 +9,8 @@
 
 int err_num;
 int msg_send[MAX_WORD];
-int codeword[MAX_WORD];
+int codeword_send[MAX_WORD];
+int codeword_recv[MAX_WORD];
 int msg_recv[MAX_WORD];
 
 void print_word(int word[], int len) {
@@ -22,8 +23,13 @@ void print_word(int word[], int len) {
 void verify() {
   for (int i = 0; i < K; i++) {
     if (msg_send[i] != msg_recv[i]) {
+      printf("raw message\n\t");
       print_word(msg_send, K);
-      print_word(codeword, N);
+      printf("encode and send\n\t");
+      print_word(codeword_send, N);
+      printf("receive\n\t");
+      print_word(codeword_send, N);
+      printf("decode\n\t");
       print_word(msg_recv, K);
       assert(0);
     }
@@ -36,13 +42,13 @@ void sim_err(int num, int start) {
   }
 
   for (int e = start; e < N; e++) {
-    codeword[e] = 1 - codeword[e];
+    codeword_recv[e] = 1 - codeword_recv[e];
 
-    decode(codeword, msg_recv);
+    decode(codeword_recv, msg_recv);
     verify();
     sim_err(num + 1, start + 1);
 
-    codeword[e] = 1 - codeword[e];
+    codeword_recv[e] = 1 - codeword_recv[e];
   }
 }
 
@@ -58,7 +64,10 @@ int main(int argc, char **argv) {
     for (int j = 0; j < K; j++) {
       msg_send[j] = i >> j & 1;
     }
-    encode(msg_send, codeword);
+    encode(msg_send, codeword_send);
+    for (int j = 0; j < N; j++) {
+      codeword_recv[j] = codeword_send[j];
+    }
 
     sim_err(0, 0);
   }

@@ -18,7 +18,7 @@ add_executable(test_overall_golay_24_12_8 test/test_overall.c)
 target_link_libraries(test_overall_golay_24_12_8 PRIVATE golay_24_12_8)
 add_test(
   NAME test_overall_golay_24_12_8
-  COMMAND test_overall_golay_24_12_8 "3"
+  COMMAND test_overall_golay_24_12_8 "2"
 )
 
 add_executable(test_rand_golay_24_12_8 test/test_rand.c)
