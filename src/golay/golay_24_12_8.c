@@ -22,7 +22,7 @@ const int B[K][K] = {
   {1,1,1,1,1,1,1,1,1,1,1,0}
 };
 
-int weight_syn(int s[]) {
+int weight(int s[]) {
   int sum = 0;
   for (int i = 0; i < K; i++) {
     sum += s[i];
@@ -46,6 +46,7 @@ void encode(const int msg[], int codeword[]) {
 void decode(const int codeword[], int msg[]) {
   int s[K] = {}, sb[K] = {};
 
+  // step 1.
   for (int i = 0; i < K; i++) {
     s[i] = codeword[i];
     for (int j = 0; j < K; j++) {
@@ -53,18 +54,20 @@ void decode(const int codeword[], int msg[]) {
     }
   }
 
-  if (weight_syn(s) <= 3) {
+  if (weight(s) <= 3) {
+  // step 2.
     for (int i = 0; i < K; i++) {
       msg[i] = codeword[i] ^ s[i];
     }
     return;
   }
   else {
+  // step 3.
     for (int i = 0; i < K; i++) {
       for (int j = 0; j < K; j++) {
         sb[j] = s[j] ^ B[i][j];
       }
-      if (weight_syn(sb) <= 2) {
+      if (weight(sb) <= 2) {
         for (int j = 0; j < K; j++) {
           msg[j] = codeword[j] ^ sb[j];
         }
@@ -73,6 +76,7 @@ void decode(const int codeword[], int msg[]) {
     }
   }
 
+  // step 4.
   for (int i = 0; i < K; i++) {
     s[i] = codeword[K + i];
     for (int j = 0; j < K; j++) {
@@ -80,18 +84,20 @@ void decode(const int codeword[], int msg[]) {
     }
   }
 
-  if (weight_syn(s) <= 3) {
+  if (weight(s) <= 3) {
+  // step 5.
     for (int i = 0; i < K; i++) {
       msg[i] = codeword[i];
     }
     return;
   }
   else {
+  // step 6.
     for (int i = 0; i < K; i++) {
       for (int j = 0; j < K; j++) {
         sb[j] = s[j] ^ B[i][j];
       }
-      if (weight_syn(sb) <= 2) {
+      if (weight(sb) <= 2) {
         for (int j = 0; j < K; j++) {
           msg[j] = j == i ? 1 ^ codeword[j] : codeword[j];
         }
