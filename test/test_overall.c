@@ -28,7 +28,7 @@ void verify() {
       printf("encode and send\n\t");
       print_word(codeword_send, N);
       printf("receive\n\t");
-      print_word(codeword_send, N);
+      print_word(codeword_recv, N);
       printf("decode\n\t");
       print_word(msg_recv, K);
       assert(0);

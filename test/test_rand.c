@@ -32,7 +32,7 @@ void verify() {
       printf("encode and send\n\t");
       print_word(codeword_send, N);
       printf("receive\n\t");
-      print_word(codeword_send, N);
+      print_word(codeword_recv, N);
       printf("decode\n\t");
       print_word(msg_recv, K);
       assert(0);
@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
 
     encode(msg_send, codeword_send);
     for (int j = 0; j < N; j++) {
-      codeword_recv[i] = codeword_send[i];
+      codeword_recv[j] = codeword_send[j];
     }
 
     sim_err();

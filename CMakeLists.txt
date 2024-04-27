@@ -10,7 +10,7 @@ add_link_options("$<$<CONFIG:DEBUG>:-fsanitize=address>")
 
 include_directories(${CMAKE_SOURCE_DIR}/inc)
 
-add_library(golay_24_12_8 STATIC src/golay_24_12_8.c)
+add_library(golay_24_12_8 STATIC src/golay/golay_24_12_8.c)
 
 enable_testing()
 
