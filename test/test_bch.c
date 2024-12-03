@@ -2,7 +2,7 @@
 #include "field.h"
 #include <stdio.h>
 
-int test_15_11_3() {
+void test_15_11_3() {
   int n = 15, k = 11, t = 1, g_arr = 0b10011;
   GF gf = gf_ctor(4, 0b10011);
   int g_mt[11][15] = {};
