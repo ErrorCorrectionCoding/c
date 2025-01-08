@@ -15,14 +15,14 @@ void bch_generate_g(int n, int k, int g_arr, GF gf, int *g_mt) {
 }
 
 void bch_generate_h(int n, int t, GF gf, int *h_mt) {
-  memset(h_mt, 0, 2 * t * n);
+  memset(h_mt, 0, t * n);
 
-  for (int i = 0; i < 2 * t; i++) {
+  for (int i = 0; i < t; i++) {
     for (int j = 0; j < n; j++) {
-      int e = gf_e(gf, (i + 1) * j);
+      int e = gf_e(gf, (2 * i + 1) * j);
 
       for (int k = 0; k < gf.m; k++) {
-        *(h_mt + (i * gf.m + k) * n + j) = gf_e2v(gf, e) >> k & 1;
+        *(h_mt + (2 * i * gf.m + k) * n + j) = gf_e2v(gf, e) >> k & 1;
       }
     }
   }
